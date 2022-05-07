@@ -31,7 +31,7 @@
         <v-container class="board">
           <v-row v-for="row in gridSize" :key="row">
             <v-col v-for="col in gridSize" :key="col" class="ma-0 pa-0">
-              <v-container class="lilBoard">
+              <v-container class="lilBoard" @click="setPosclicked(row, col)">
                 0
               </v-container>
             </v-col>
@@ -40,6 +40,17 @@
       </v-row>
 
     </v-main>
+
+    <v-dialog hide-overlay transition="dialog-bottom-transition"  v-model="dialog">
+      <v-card>
+        <v-card-text>
+          Row: {{this.posClicked.row}}
+          Col: {{this.posClicked.col}}
+        </v-card-text>
+        <v-text-field></v-text-field>
+      </v-card>
+    </v-dialog>
+
   </v-app>
 </template>
 
@@ -54,6 +65,8 @@ export default {
 
   data() {
     return {
+      posClicked: {row:0, col: 0},
+      dialog: false,
       gridSize : 3,
       hello : "<"
     }
@@ -66,6 +79,11 @@ export default {
         this.gridSize = 2
       if (this.gridSize > 12)
         this.gridSize = 12
+    },
+    setPosclicked(row, col){
+      this.dialog = true;
+      this.posClicked.col = col;
+      this.posClicked.row = row;
     }
   }
 };
