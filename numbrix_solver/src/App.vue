@@ -10,19 +10,19 @@
       <v-row class="text-center my-3">
         <v-col cols="5"></v-col>
         <v-col cols="2">
-          <v-card elevation="8">
+          <v-container elevation="8">
             <v-row class="text-center my-3">
-              <v-col cols="4">
+              <v-col cols="5">
                 <v-btn @click="changeGridSize(-1)"> {{hello}} </v-btn>
               </v-col>
-              <v-col cols="4">
-                {{gridSize}}
+              <v-col cols="2">
+                <h3>{{gridSize}}</h3>
               </v-col>
-              <v-col cols="4">
+              <v-col cols="5">
                 <v-btn @click="changeGridSize(+1)"> > </v-btn>
               </v-col>
             </v-row>
-          </v-card>
+          </v-container>
         </v-col>
         <v-col cols="5"></v-col>
       </v-row>
