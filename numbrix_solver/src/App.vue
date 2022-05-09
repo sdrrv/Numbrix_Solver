@@ -28,7 +28,7 @@
       </v-row>
 
       <v-row class="text-center my-3">
-        <v-container class="board">
+        <v-container class="board" :style="'max-width: '+ getBoardSize() + '%'">
           <v-row v-for="row in gridSize" :key="row">
             <v-col v-for="col in gridSize" :key="col" class="ma-0 pa-0">
               <v-container
@@ -40,6 +40,10 @@
             </v-col>
           </v-row>
         </v-container>
+      </v-row>
+
+      <v-row class="justify-center my-10">
+        <v-btn @click="getData">Submit</v-btn>
       </v-row>
 
     </v-main>
@@ -84,6 +88,11 @@ export default {
   },
 
   methods : {
+
+    getBoardSize(){
+      return 80
+    },
+
     changeGridSize(amount){
       this.gridSize += amount
       if (this.gridSize < 2)
@@ -100,24 +109,31 @@ export default {
     },
 
     setNewMatrix(size) {
-      console.log(this.matrix)
-      console.log(size)
       this.matrix = new Array(size);
-      console.log(this.matrix)
       for (let i = 0; i < size; i++){
         this.matrix[i] = new Array(size)
         for (let j = 0; j < size; j++)
           this.matrix[i][j] = "0";
       }
-      console.log(this.matrix)
     },
 
     insertValue() {
       this.matrix[this.posClicked.row - 1][this.posClicked.col - 1] = this.newPosValue;
       this.newPosValue = ''
       this.dialog = false
-    }
+    },
 
+    async getData() {
+      try {
+        const response = await this.$http.get(
+            "http://localhost:5001"
+        );
+        // JSON responses are automatically parsed.
+        console.log(response.data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 };
 </script>
@@ -128,8 +144,7 @@ export default {
     border-radius: 10px;
   }
   .lilBoard {
-
-    border: 1px solid black;
+    border: 2px solid black;
 
   }
 </style>
