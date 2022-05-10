@@ -44,7 +44,7 @@
       </v-row>
 
       <v-row class="justify-center my-10">
-        <v-btn @click="getData">Submit</v-btn>
+        <v-btn @click="getData" :disabled="isLoading" :loading="isLoading" >Submit</v-btn>
       </v-row>
 
     </v-main>
@@ -57,7 +57,7 @@
         </v-card-text>
         <v-text-field v-model="newPosValue"></v-text-field>
         <h1>{{newPosValue}}</h1>
-        <v-btn @click="insertValue" :disabled="isLoading" :loading="isLoading">Submit value</v-btn>
+        <v-btn @click="insertValue" >Submit value</v-btn>
       </v-card>
     </v-dialog>
 
