@@ -138,7 +138,9 @@ export default {
         this.matrix = response.data
       } catch (error) {
         console.log(error);
+        alert(error);
       }
+      alert("IT WORKED!")
       this.isLoading = false
     }
   }
