@@ -34,6 +34,7 @@
               <v-container
                   class="lilBoard"
                   :style="matrix[row - 1][col - 1] !== '0' ? 'background-color: darkgrey' : 'background-color: dimgrey'"
+
                   @click="setPosclicked(row, col)">
                 {{matrix[row - 1][col - 1]}}
               </v-container>
@@ -56,7 +57,7 @@
         </v-card-text>
         <v-text-field v-model="newPosValue"></v-text-field>
         <h1>{{newPosValue}}</h1>
-        <v-btn @click="insertValue">Submit value</v-btn>
+        <v-btn @click="insertValue" :disabled="isLoading" :loading="isLoading">Submit value</v-btn>
       </v-card>
     </v-dialog>
 
@@ -80,6 +81,7 @@ export default {
       hello : "<",
       newPosValue : '',
       matrix : [],
+      isLoading : false,
     }
   },
 
@@ -125,14 +127,19 @@ export default {
 
     async getData() {
       try {
-        const response = await this.$http.get(
-            "http://localhost:5001"
+        this.isLoading = true
+        const data = {"board" : this.matrix}
+        console.log(this.matrix)
+        const response = await this.$http.put(
+            "https://numbrix-solver.herokuapp.com/solve?boardSize=" + this.gridSize, data
         );
         // JSON responses are automatically parsed.
-        console.log(response.data)
+        console.log(response)
+        this.matrix = response.data
       } catch (error) {
         console.log(error);
       }
+      this.isLoading = false
     }
   }
 };
